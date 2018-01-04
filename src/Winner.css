@@ -1,3 +1,25 @@
 .hidden{
     display: none; 
 }
+
+.winnerDRAW{
+    font-size: 2em;
+    color: #3B45AA;
+}
+
+.winnerX{
+    font-size: 2em;
+    color: #1E9FE8;
+}
+
+.winnerO{
+    font-size: 2em;
+    color: #FF5252;
+}
+h2{
+    margin: 0px !important;
+}
+
+.innerwinnercontainer{
+    padding-top:10%;
+}

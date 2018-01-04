@@ -38,3 +38,20 @@ body .tic-tac-toe {
 .menu h1{
   color: #3B45AA;
 }
+
+button {
+  outline: none;
+  height: 40px;
+  background-color: #B27B8B;
+  border-radius: 20px;
+  color: white;
+  margin: auto;
+  padding: 10px;
+  cursor: pointer;
+}
+.turn{
+  padding: 10px;
+}
+.Select-menu-outer, .Select-control{
+  width: 75px !important;
+}

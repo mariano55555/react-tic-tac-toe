@@ -13,3 +13,12 @@
     font-size: 18px;
     font-weight: bold;
 }
+
+.selectedWinnerX, .selectedWinnerX:hover{
+    background-color:#1E9FE8;
+}
+
+
+.selectedWinnerO, .selectedWinnerO:hover{
+    background-color:#FF5252;
+}

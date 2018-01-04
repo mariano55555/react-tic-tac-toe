@@ -7,7 +7,7 @@ export default class Square extends Component {
     }
     render() {
         return (
-            <div className={"tile " + this.props.row+''+this.props.column } onClick={() => this.tileClick(this.props)}>
+            <div className={"tile " + this.props.row+''+this.props.column +  ((this.props.winner) ? ( this.props.numbers.includes(this.props.row+''+this.props.column) ? " selectedWinner"+this.props.winner : "") : "") } onClick={() => this.tileClick(this.props)}>
                 <p className={this.props.value ? "selected" : ""} >{this.props.gameBoard[this.props.row+''+this.props.column]}</p>
             </div>
         )

@@ -3,12 +3,14 @@ import './App.css';
 import Square from './Square';
 import Winner from './Winner';
 import Score from './Score';
+import ResetButton from './ResetButton';
 
 class App extends Component {
 
   constructor() {
     super();
     this.state = {
+      showResult: false,
       boardsize: 3,
       gameBoard:{},
       winner: null,
@@ -22,6 +24,25 @@ class App extends Component {
         O: 0
       }
     }
+  }
+
+
+  resetBoard(){
+    this.setState({
+      showResult: false,
+      gameBoard: {},
+      canvas: Array.apply(null, Array(3)),
+      boardsize:3,
+      moves:0,
+      turn: 'X',
+      winner: null,
+      selectedSquares: [],
+      turnPlayer: 'Player 1',
+      score: {
+        X: 0,
+        O: 0
+      }
+    })
   }
 
   checkWinner(turn) {
@@ -84,6 +105,7 @@ class App extends Component {
       }
 
       if (diagonal_counter === this.state.boardsize) {  
+        this.setState({ selectedSquares: diagonal_array });
         return true;
       }
 
@@ -143,6 +165,7 @@ class App extends Component {
             Turn: {this.state.turnPlayer}
           </div>
           <Winner winner={this.state.winner} />
+          <ResetButton reset={this.resetBoard.bind(this)}/>
         </div>
         <div className="tic-tac-toe">
          { this.state.canvas.map(function(value, row){
@@ -157,6 +180,7 @@ class App extends Component {
                   gameBoard={this.state.gameBoard}
                   value={this.state.gameBoard[row+''+column]}
                   updateBoard={this.updateBoard.bind(this)}
+                  numbers={this.state.selectedSquares}
                   boardsize={this.state.boardsize}
                   />
                 )
