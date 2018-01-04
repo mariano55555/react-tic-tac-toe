@@ -1,0 +1,17 @@
+
+.tile {
+    background-color: #B27B8B;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 75px;
+    height: 70px;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+    position: relative;
+}
+
+
+.tile:hover {
+    background-color:#D0782A;
+}
