@@ -1,0 +1,15 @@
+.scoretable{
+    margin: 0 auto;
+}
+
+.scoreplayer1{
+    color: #1E9FE8;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.scoreplayer2{
+    color: #FF5252;
+    font-size: 18px;
+    font-weight: bold;
+}
