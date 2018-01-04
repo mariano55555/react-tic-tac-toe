@@ -11,7 +11,7 @@ React Tic Tac Toe is a version of the popular game created using React JS.
 
 # Demo
 
-Live demo: [50.18.144.251/demos/tic-tac-toe](50.18.144.251/demos/tic-tac-toe)
+Live demo: [50.18.144.251/demos/tic-tac-toe](http://50.18.144.251/demos/tic-tac-toe)
 
 
 ### Technology
