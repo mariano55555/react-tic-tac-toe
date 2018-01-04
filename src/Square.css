@@ -15,3 +15,10 @@
 .tile:hover {
     background-color:#D0782A;
 }
+
+.tile p.selected {
+    line-height: 0px;
+    text-align: center;
+    color: white;
+    font-size: 38px;
+}
