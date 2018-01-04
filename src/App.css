@@ -7,6 +7,11 @@ body {
   text-align: center;
 }
 
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
 body .container{
   margin: auto;
   position: absolute;
@@ -17,8 +22,33 @@ body .container{
   background-color: white;
   border-radius: 6px;
   padding: 5px;
-  width: 300px;
   height: 700px;
+}
+
+.containerwinner{
+  margin: auto;
+  position: absolute;
+  text-align: center;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  border-radius: 6px;
+  padding: 5px;
+  height: 300px;
+}
+
+body .container3 {
+  width: 300px;
+}
+
+body .container4 {
+  width: 400px;
+}
+
+body .container5 {
+  width: 500px;
 }
 
 body .tic-tac-toe {
@@ -31,6 +61,17 @@ body .tic-tac-toe {
   align-items: center;
 }
 
+button {
+  height: 40px;
+  background-color: #B27B8B;
+  border-radius: 20px;
+  color: white;
+  margin: auto;
+  padding: 10px;
+  cursor: pointer;
+  outline: none;
+}
+
 .menu {
   text-align: center;
 }
@@ -39,16 +80,6 @@ body .tic-tac-toe {
   color: #3B45AA;
 }
 
-button {
-  outline: none;
-  height: 40px;
-  background-color: #B27B8B;
-  border-radius: 20px;
-  color: white;
-  margin: auto;
-  padding: 10px;
-  cursor: pointer;
-}
 .turn{
   padding: 10px;
 }

@@ -4,6 +4,10 @@ import Square from './Square';
 import Winner from './Winner';
 import Score from './Score';
 import ResetButton from './ResetButton';
+import PlayButton from './PlayButton';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+
 
 class App extends Component {
 
@@ -43,6 +47,66 @@ class App extends Component {
         O: 0
       }
     })
+  }
+
+
+  updateBoard(row, column, player){
+
+    this.setState({ moves: this.state.moves + 1 });
+
+    if(this.state.gameBoard[row+''+column] === 'X' || this.state.gameBoard[row+''+column] === 'O' || this.state.winner){
+      return;
+    }
+
+    // REIGTER THE TURN (X/O)
+    this.setState({
+        gameBoard: {
+            ...this.state.gameBoard,
+            [row+''+column]: this.state.turn
+        }
+    });
+   
+    // Set time to wait and calculate the winner in order to update the states..states are asynchronous!
+    setTimeout(() => {
+        if (this.checkWinner(this.state.turn)) {
+          this.setState({winner: this.state.turn});
+          this.setState({
+              score: {
+                  ...this.state.score,
+                  [this.state.turn]: this.state.score[this.state.turn] + 1
+              }
+          });
+        
+      }else if (this.state.moves === Math.pow(this.state.boardsize, 2)){ 
+        this.setState({winner:'DRAW'});  
+        this.setState({turnPlayer: 'Player 2'});
+        setTimeout(() => {
+          this.setState({showResult: true});
+        }, 500);
+      }
+    }, 200);
+
+  }
+
+  updateGrid() {
+    this.setState({
+        showResult: false,
+        gameBoard: Array(Math.pow(this.state.boardsize, 2)).fill(null),
+        canvas: Array.apply(null, Array(this.state.boardsize)),
+        moves:0,
+        turn: 'X',
+        winner: null,
+        selectedSquares: [],
+        turnPlayer: 'Player 1',
+    })
+  }
+  
+  handleChange = (boardsize) => {
+    this.setState({ 
+      boardsize: parseInt(boardsize.value,10)
+    }, function(){
+      this.updateGrid();
+    });
   }
 
   checkWinner(turn) {
@@ -89,11 +153,17 @@ class App extends Component {
           
           if (horizontal_counter === this.state.boardsize) {
               this.setState({ selectedSquares: horizontal_array });
+              setTimeout(() => {
+                this.setState({showResult: true});
+              }, 800);
               return true;
           }
 
           if (vertical_counter === this.state.boardsize) {
             this.setState({ selectedSquares: vertical_array });
+            setTimeout(() => {
+              this.setState({showResult: true});
+            }, 800);
             return true;
           }
 
@@ -101,11 +171,17 @@ class App extends Component {
 
       if (inverse_diagonal_counter === this.state.boardsize) {
           this.setState({ selectedSquares: inverse_diagonal_array });
+          setTimeout(() => {
+            this.setState({showResult: true});
+          }, 800);
           return true;
       }
 
       if (diagonal_counter === this.state.boardsize) {  
         this.setState({ selectedSquares: diagonal_array });
+        setTimeout(() => {
+          this.setState({showResult: true});
+        }, 800);
         return true;
       }
 
@@ -121,52 +197,34 @@ class App extends Component {
   }
 
 
-  updateBoard(row, column, player){
-
-    this.setState({ moves: this.state.moves + 1 });
-
-    if(this.state.gameBoard[row+''+column] === 'X' || this.state.gameBoard[row+''+column] === 'O' || this.state.winner){
-      return;
-    }
-
-    // REIGTER THE TURN (X/O)
-    this.setState({
-        gameBoard: {
-            ...this.state.gameBoard,
-            [row+''+column]: this.state.turn
-        }
-    });
-   
-    // Set time to wait and calculate the winner in order to update the states..states are asynchronous!
-    setTimeout(() => {
-        if (this.checkWinner(this.state.turn)) {
-          this.setState({winner: this.state.turn});
-          this.setState({
-              score: {
-                  ...this.state.score,
-                  [this.state.turn]: this.state.score[this.state.turn] + 1
-              }
-          });
-        
-      }else if (this.state.moves === Math.pow(this.state.boardsize, 2)){ 
-        this.setState({winner:'DRAW'});
-      }
-    }, 200);
-
-  }
 
   render() {
     return (
-      <div className="container">
+      <div>
+      <div className={"container container" + this.state.boardsize + ((this.state.showResult) ? " hidden" : " visible") }>
         <div className="menu">
           <h1>Tic Tac Toe</h1>
           <Score score={this.state.score}/>
           <div className="turn">
             Turn: {this.state.turnPlayer}
           </div>
-          <Winner winner={this.state.winner} />
           <ResetButton reset={this.resetBoard.bind(this)}/>
         </div>
+        
+       <Select
+        name="form-field-name"
+        value={this.state.boardsize}
+        onChange={this.handleChange}
+        clearable={false}
+        searchable={false}
+        autosize={false}
+        options={[
+          { value: '3', label: '3x3' },
+          { value: '4', label: '4x4' },
+          { value: '5', label: '5x5' },
+        ]}
+      />
+
         <div className="tic-tac-toe">
          { this.state.canvas.map(function(value, row){
             return (
@@ -179,15 +237,22 @@ class App extends Component {
                   winner={this.state.winner}
                   gameBoard={this.state.gameBoard}
                   value={this.state.gameBoard[row+''+column]}
+                  boardsize={this.state.boardsize}
                   updateBoard={this.updateBoard.bind(this)}
                   numbers={this.state.selectedSquares}
-                  boardsize={this.state.boardsize}
-                  />
+                  turn={this.state.turn} />
                 )
               }.bind(this))
             )
           }.bind(this))}
         </div>
+      </div>
+      <div className={"containerwinner container" + this.state.boardsize  + ((this.state.showResult) ? " visible" : " hidden")}>
+          <Winner winner={this.state.winner} />
+          <Score score={this.state.score}/>
+          <PlayButton play={this.updateGrid.bind(this)}/>
+      </div>
+
       </div>
     );
   }
